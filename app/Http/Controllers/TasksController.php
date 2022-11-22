@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Task;    // 追加
-
+use App\Providers\RouteServiceProvider;
 class TasksController extends Controller
 {
     /**
@@ -131,7 +131,7 @@ class TasksController extends Controller
         
         //本人以外のユーザーがアクセスした場合はトップページへ移動
         if (\Auth::id() != $task->user_id) {
-            return redirect(RouteServiceProvider::HOME);
+            return redirect('/');
         }
     
         // タスク編集ビューでそれを表示
@@ -160,7 +160,7 @@ class TasksController extends Controller
         
         //本人以外のユーザーがアクセスした場合はトップページへ移動
         if (\Auth::id() != $task->user_id) {
-            return redirect(RouteServiceProvider::HOME);
+            return redirect('/');
         }
         
         // タスクを更新
@@ -185,7 +185,7 @@ class TasksController extends Controller
         
         //本人以外のユーザーがアクセスした場合はトップページへ移動
         if (\Auth::id() != $task->user_id) {
-            return redirect(RouteServiceProvider::HOME);
+            return redirect('/');
         }
         
         //dd($task);
