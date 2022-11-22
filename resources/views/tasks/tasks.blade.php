@@ -6,7 +6,7 @@
                 <div class="media-body">
                     <div>
                         {{-- 投稿の所有者のユーザ詳細ページへのリンク --}}
-                        {!! link_to_route('tasks.show', $task->user->name, ['task' => $task->user->id]) !!}
+                        {!! link_to_route('tasks.show', $task->user->name, ['task' => $task->id]) !!}
                         <span class="text-muted">posted at {{ $task->created_at }}</span>
                     </div>
                     <div>

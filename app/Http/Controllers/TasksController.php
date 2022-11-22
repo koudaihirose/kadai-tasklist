@@ -95,14 +95,21 @@ class TasksController extends Controller
      */
     public function show($id)
     {
+
         // idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
+        
+        //本人以外のユーザーがアクセスした場合はトップページへ移動
+        if (\Auth::id() != $task->user_id) {
+            return redirect('/');
+        }
+        
         
         // 関係するモデルの件数をロード
         //$task->loadRelationshipCounts();
 
         // ユーザの投稿一覧を作成日時の降順で取得
-        //$tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+        //$tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10)
         
         // タスク詳細ビューでそれを表示
         return view('tasks.show', [
@@ -121,7 +128,12 @@ class TasksController extends Controller
     {
         // idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
-
+        
+        //本人以外のユーザーがアクセスした場合はトップページへ移動
+        if (\Auth::id() != $task->user_id) {
+            return redirect(RouteServiceProvider::HOME);
+        }
+    
         // タスク編集ビューでそれを表示
         return view('tasks.edit', [
             'task' => $task,
@@ -145,6 +157,12 @@ class TasksController extends Controller
        
         // idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
+        
+        //本人以外のユーザーがアクセスした場合はトップページへ移動
+        if (\Auth::id() != $task->user_id) {
+            return redirect(RouteServiceProvider::HOME);
+        }
+        
         // タスクを更新
         $task->status = $request->status;    // 追加
         $task->content = $request->content;
@@ -164,6 +182,11 @@ class TasksController extends Controller
     {
         // idの値でタスクを検索して取得
         $task = Task::findOrFail($id);
+        
+        //本人以外のユーザーがアクセスした場合はトップページへ移動
+        if (\Auth::id() != $task->user_id) {
+            return redirect(RouteServiceProvider::HOME);
+        }
         
         //dd($task);
         // タスクを削除
